@@ -17,7 +17,7 @@ public class L44SbmvcApplication {
 
     @GetMapping
     public String goHome(){
-        return "home.jsp";
+        return "home";
     }
 
 }
