@@ -14,6 +14,6 @@ public class UserResource {
 
     @GetMapping("/{id}")
     public UserEntity get(@PathVariable (name = "id") String login){
-
+        return null;
     }
 }
