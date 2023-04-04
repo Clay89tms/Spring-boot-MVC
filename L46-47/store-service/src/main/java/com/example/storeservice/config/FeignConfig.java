@@ -1,6 +1,9 @@
 package com.example.storeservice.config;
 
+
+import com.example.storeservice.dto.ErrorResponse;
 import com.example.storeservice.web.OrderExeption;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;
@@ -13,21 +16,24 @@ import java.util.Optional;
 public class FeignConfig {
 
     @Bean
-    public ErrorDecoder errorDecoder(){
+    public ErrorDecoder errorDecoder() {
         return (methodKey, response) -> {
             Integer status = Optional.ofNullable(response)
                     .map(Response::status)
                     .orElseThrow();
-            if(status == 404){
-                byte[] bytes = new byte[0];
+            if (status == 404) {
+                ErrorResponse errorResponse;
                 try {
-                    bytes = response.body().asInputStream().readAllBytes();
-                    String s = new String(bytes);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    errorResponse = objectMapper.readValue(response.body().asInputStream(), ErrorResponse.class);
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                throw new OrderExeption(errorResponse.getErrorMessage());
             }
-            throw new OrderExeption();
+            throw new OrderExeption("UNEXPECTED error");
         };
     }
 

@@ -19,6 +19,6 @@ public class MyErrorHandler implements ResponseErrorHandler {
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        throw new OrderExeption();
+        throw new OrderExeption("");
     }
 }
