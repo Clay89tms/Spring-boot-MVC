@@ -3,11 +3,11 @@ package com.example.storeservice.web;
 import lombok.Data;
 
 @Data
-public class OrderExeption extends RuntimeException {
+public class OrderException extends RuntimeException {
 
     private String errorMessage;
 
-    public OrderExeption(String errorMessage) {
+    public OrderException(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 }

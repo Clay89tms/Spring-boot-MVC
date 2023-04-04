@@ -26,8 +26,10 @@ public class StoreResource {
         return service.makeOrder(request);
     }
 
-    @ExceptionHandler(OrderExeption.class)
-    public ResponseEntity<Void> processError(){
-        return ResponseEntity.badRequest().build();
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<ErrorResponse> processError(OrderException exc){
+        return ResponseEntity
+                .status(404)
+                .body(new ErrorResponse(exc.getErrorMessage()));
     }
 }

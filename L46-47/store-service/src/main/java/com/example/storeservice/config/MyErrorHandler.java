@@ -1,6 +1,6 @@
 package com.example.storeservice.config;
 
-import com.example.storeservice.web.OrderExeption;
+import com.example.storeservice.web.OrderException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -19,6 +19,6 @@ public class MyErrorHandler implements ResponseErrorHandler {
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        throw new OrderExeption("");
+        throw new OrderException("");
     }
 }

@@ -6,7 +6,6 @@ import com.example.storeservice.dto.GoodDto;
 import com.example.storeservice.dto.OrderResponse;
 import com.example.storeservice.dto.StoreRequest;
 import com.example.storeservice.dto.UserDto;
-import com.example.storeservice.web.OrderExeption;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

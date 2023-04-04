@@ -2,7 +2,7 @@ package com.example.storeservice.config;
 
 
 import com.example.storeservice.dto.ErrorResponse;
-import com.example.storeservice.web.OrderExeption;
+import com.example.storeservice.web.OrderException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -31,9 +31,9 @@ public class FeignConfig {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                throw new OrderExeption(errorResponse.getErrorMessage());
+                throw new OrderException(errorResponse.getErrorResponseMessage());
             }
-            throw new OrderExeption("UNEXPECTED error");
+            throw new OrderException("UNEXPECTED error");
         };
     }
 
