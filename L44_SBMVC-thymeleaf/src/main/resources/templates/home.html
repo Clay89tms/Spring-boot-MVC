@@ -1,40 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
     <meta charset="UTF-8">
     <title>HOME</title>
 </head>
 <body>
 
-<div th:replace="fragment/test :: hello1"></div>
-<div th:replace="fragment/test :: hello2"></div>
-<hr/>
-<p th:text="#{Label.message}"></p>
+<div class="container">
 
-<div th:if="${isAdmin}">
-    <h3>I am admin</h3>
+    <div class="row">
+        <div class="col-2">
+<!--            thymeleaf позволяет дотянуться до любого бина ниже пример-->
+<p th:text="${@myDateService.getDate()}">Text</p>
+        </div>
+        <div class="col-10">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nmae</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Acton</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="car : ${cars}">
+                    <td th:text="${car.name}"></td>
+                    <td th:text="${car.age}"></td>
+                    <td><a th:href="@{/details/{id}(id=${car.id})}">
+                        <button type="button" class="btn btn-warning">Update</button>
+                    </a></td>
+                    <td><a th:href="@{/delete/{id}(id=${car.id})}">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </a></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <form method="post" th:action="@{/}" th:object="${newcar}">
+            <input type="text" th:field="*{name}"><br/>
+            <input type="number" th:field="*{age}"><br/>
+            <button>save</button>
+        </form>
+
+    </div>
+
 </div>
-<div th:unless="${isAdmin}">
-    <h3>I am not admin!</h3>
-</div>
-
-hello from Home
-
-<div th:text="3434"></div>
-<div th:text="${6 + 10}"></div>
-<div th:text="${6 < 10}"></div>
-<div th:text="6 + 10"></div>
-<div th:text="'6+10'"></div>
-<hr/>
-<div th:text="${car.name}"></div>
-<div th:text="${car.getFull()}"></div>
-<div th:text="${carMap.car.getFull()}"></div>
-<hr/>
-<div th:text="${carMap['car'].getFull()}"></div>
 
 
+<!--<div th:replace="fragment/test :: hello1"></div>-->
+<!--<div th:replace="fragment/test :: hello2"></div>-->
+<!--<hr/>-->
+<!--<p th:text="#{Label.message}"></p>-->
+
+<!--<div th:if="${isAdmin}">-->
+<!--    <h3>I am admin</h3>-->
+<!--</div>-->
+<!--<div th:unless="${isAdmin}">-->
+<!--    <h3>I am not admin!</h3>-->
+<!--</div>-->
+
+<!--hello from Home-->
+
+<!--<div th:text="3434"></div>-->
+<!--<div th:text="${6 + 10}"></div>-->
+<!--<div th:text="${6 < 10}"></div>-->
+<!--<div th:text="6 + 10"></div>-->
+<!--<div th:text="'6+10'"></div>-->
+<!--<hr/>-->
+<!--<div th:text="${car.name}"></div>-->
+<!--<div th:text="${car.getFull()}"></div>-->
+<!--<div th:text="${carMap.car.getFull()}"></div>-->
+<!--<hr/>-->
+<!--<div th:text="${carMap['car'].getFull()}"></div>-->
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
 </html>
