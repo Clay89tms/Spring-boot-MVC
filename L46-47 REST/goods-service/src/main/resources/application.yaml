@@ -1,0 +1,11 @@
+server:
+  port: 8082
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gooddb
+    username: postgres
+    password: postgres
