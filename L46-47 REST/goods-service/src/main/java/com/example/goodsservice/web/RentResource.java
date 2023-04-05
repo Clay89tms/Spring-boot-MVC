@@ -1,6 +1,7 @@
 package com.example.goodsservice.web;
 
 import com.example.goodsservice.model.RentDto;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RentResource {
 
     @GetMapping
+    @Operation(summary = "summary GET rent", description = "description GET rent")
     @ApiResponses(value = {
             @ApiResponse(description = "return rent for current user", responseCode = "201",
             content = @Content(mediaType = "application/JSON", schema = @Schema(name = "test title",
@@ -28,6 +30,7 @@ public class RentResource {
     }
 
     @PostMapping
+    @Operation(summary = "summary POST rent", description = "description POST rent")
     public RentDto save(@RequestBody RentDto dto){
         return new RentDto();
     }
