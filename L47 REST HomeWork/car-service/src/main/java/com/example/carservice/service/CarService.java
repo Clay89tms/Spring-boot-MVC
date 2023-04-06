@@ -32,7 +32,17 @@ public class CarService {
     public CarEntity updateCarInBD(CarEntity car) {
         //add my error class/ del null
         if(repository.existsById(car.getId())) {
-            return repository.save(car);
+            CarEntity carInBD = repository.findById(car.getId()).get();
+            if (!car.getModel().equals(null)){
+                carInBD.setModel(car.getModel());
+            }
+            if (car.getColor() != null || !car.getColor().isBlank()){
+                carInBD.setColor(car.getColor());
+            }
+            if (car.getAge() != null){
+                carInBD.setAge(car.getAge());
+            }
+            return repository.save(carInBD);
         }
         return null;
     }

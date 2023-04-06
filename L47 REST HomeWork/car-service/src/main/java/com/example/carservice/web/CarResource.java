@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class CarResource {
     }
 
     @GetMapping
-    public CarEntity getCarById(@RequestBody UUID id){
+    public CarEntity getCarById(@RequestParam(name = "id") UUID id){
         return service.getCarInDB(id);
     }
 
@@ -43,7 +44,7 @@ public class CarResource {
     }
 
     @DeleteMapping
-    public void delete(@RequestBody UUID id){
+    public void delete(@RequestParam(name = "id") UUID id){
         service.deleteCarById(id);
     }
 }
