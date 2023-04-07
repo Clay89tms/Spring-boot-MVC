@@ -24,8 +24,8 @@ public class CarResource {
     private final CarService service;
 
     @PostMapping
-    public void saveCar(@RequestBody CarEntity car){
-        service.createCarInBD(car);
+    public CarEntity saveCar(@RequestBody CarEntity car){
+        return service.createCarInBD(car);
     }
 
     @GetMapping

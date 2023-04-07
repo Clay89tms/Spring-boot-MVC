@@ -1,7 +1,6 @@
 package com.example.carservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,8 +14,6 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-@Builder
 
 @Entity
 @Table(name = "car_service")
@@ -32,5 +29,5 @@ public class CarEntity {
 
     private String model;
     private String color;
-    private Integer age;
+    private Double price;
 }

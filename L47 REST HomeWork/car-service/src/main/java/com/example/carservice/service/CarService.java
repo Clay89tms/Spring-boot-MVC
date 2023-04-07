@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -16,8 +15,8 @@ public class CarService {
 
     private final CarRepository repository;
 
-    public void createCarInBD(CarEntity car) {
-        repository.save(car);
+    public CarEntity createCarInBD(CarEntity car) {
+        return repository.save(car);
     }
 
     public CarEntity getCarInDB(UUID id) {
@@ -39,8 +38,8 @@ public class CarService {
             if (car.getColor() != null || !car.getColor().isBlank()){
                 carInBD.setColor(car.getColor());
             }
-            if (car.getAge() != null){
-                carInBD.setAge(car.getAge());
+            if (car.getPrice() != null){
+                carInBD.setPrice(car.getPrice());
             }
             return repository.save(carInBD);
         }
@@ -51,5 +50,9 @@ public class CarService {
     public void deleteCarById(UUID id) {
         var carByIdFromBD = repository.findById(id);
         repository.deleteById(id);
+    }
+
+    public CarEntity getCarByModel(String model) {
+        return repository.findByModel(model);
     }
 }
