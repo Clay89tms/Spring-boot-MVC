@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Generated;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +18,7 @@ import javax.annotation.Generated;
 @Builder
 public class OrderCarResponse {
 
-   private Integer idOrder;
+   private UUID idOrder;
    private String model;
    private String color;
    private Double price;

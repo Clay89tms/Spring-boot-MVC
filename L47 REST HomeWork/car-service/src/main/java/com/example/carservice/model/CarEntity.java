@@ -1,5 +1,6 @@
 package com.example.carservice.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,6 @@ public class CarEntity {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID id;
-
     private String model;
     private String color;
     private Double price;

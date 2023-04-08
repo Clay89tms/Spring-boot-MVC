@@ -21,18 +21,18 @@ public class OrderCarService {
         String orderModel = dto.getModel();
         CarDto orderCar;
         List<CarDto> allCar = carClient.getAllCar();
-        for (CarDto car : allCar){
-            if (car.getModel().equals(orderModel)){
+        for (CarDto car : allCar) {
+            if (car.getModel().equals(orderModel)) {
                 orderCar = car;
-                break;
+                return OrderCarResponse.builder()
+                        .idOrder(UUID.randomUUID())
+                        .model(orderCar.getModel())
+                        .color(orderCar.getColor())
+                        .price(orderCar.getPrice())
+                        .build();
             }
         }
+        return null;
 
-        return OrderCarResponse.builder()
-                .idOrder()
-                .model()
-                .color()
-                .price()
-                .build();
     }
 }
