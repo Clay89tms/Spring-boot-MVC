@@ -29,8 +29,9 @@ public class CarResource {
     }
 
     @GetMapping
-    public CarEntity getCarById(@RequestParam(name = "id") UUID id){
-        return service.getCarInDB(id);
+    public CarEntity getCarById(@RequestBody CarEntity car){
+
+        return service.getCarInDB(car.getId());
     }
 
     @GetMapping("/all")
@@ -44,7 +45,7 @@ public class CarResource {
     }
 
     @DeleteMapping
-    public void delete(@RequestParam(name = "id") UUID id){
-        service.deleteCarById(id);
+    public void delete(@RequestBody CarEntity car){
+        service.deleteCarById(car.getId());
     }
 }
