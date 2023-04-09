@@ -27,6 +27,7 @@ public class CarEntity {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID id;
+    @NotNull
     private String model;
     private String color;
     private Double price;
