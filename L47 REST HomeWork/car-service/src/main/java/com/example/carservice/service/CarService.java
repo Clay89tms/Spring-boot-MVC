@@ -69,8 +69,4 @@ public class CarService {
         repository.deleteById(id);
 
     }
-
-    public CarEntity getCarByModel(String model) {
-        return repository.findByModel(model);
-    }
 }
