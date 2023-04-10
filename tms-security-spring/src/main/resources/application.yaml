@@ -5,3 +5,11 @@ server:
 #    user:
 #      name: user
 #      password: pass
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/security
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
