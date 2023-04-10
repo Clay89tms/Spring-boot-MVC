@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MainController {
 
-    @GetMapping("/main")
+    @GetMapping("/mainpage")
     public String main(){
-        return "main-page.thml";
+        return "main-page.html";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginpage")
     public String login(){
-        return "login-page.thml";
+        return "login-page.html";
     }
 }
