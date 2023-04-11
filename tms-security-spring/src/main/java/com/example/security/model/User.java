@@ -1,6 +1,7 @@
 package com.example.security.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,14 +14,15 @@ import javax.persistence.Table;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
+@Builder
+
 @Entity
-@Table(name = "pesons")
+@Table(name = "persons")
 public class User implements UserDetails {
 
     @Id
@@ -28,12 +30,12 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    private String auths;
+    private String auth;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (auths != null) {
-            return List.of(new SimpleGrantedAuthority(auths));
+        if (auth != null) {
+            return List.of(new SimpleGrantedAuthority(auth));
         } else {
             return null;
         }
@@ -41,17 +43,17 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
