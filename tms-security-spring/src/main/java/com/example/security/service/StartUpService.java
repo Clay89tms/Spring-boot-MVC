@@ -19,7 +19,7 @@ public class StartUpService {
     public void init() {
         User user = User.builder()
                 .id(UUID.randomUUID())
-                .username("user1")
+                .username("user")
                 .password("pass")
                 .auth("read")
                 .build();

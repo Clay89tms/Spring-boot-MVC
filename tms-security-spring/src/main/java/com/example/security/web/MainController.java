@@ -17,4 +17,9 @@ public class MainController {
     public String login(){
         return "login-page.html";
     }
+
+    @GetMapping("/infopage")
+    public String info(){
+        return "info-page.html";
+    }
 }

@@ -19,8 +19,17 @@ public class SecurityOldConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/loginpage").permitAll()
+                .antMatchers("/loginpage", "infopage").permitAll()
                 .antMatchers("/mainpage").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/loginpage").loginProcessingUrl("/try-login")
+                .successHandler((request, response, authentication) -> {
+                    response.sendRedirect("/mainpage");
+                })
+                //используем заданные нами login & pass вместо username & password
+                .usernameParameter("login")
+                .passwordParameter("pass")
                 .and()
                 .httpBasic();
     }
