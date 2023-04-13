@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 
 @Configuration
@@ -22,6 +24,7 @@ public class SecurityOldConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/loginpage", "infopage").permitAll()
                 .antMatchers("/mainpage").authenticated()
                 .and()
+                .cors().disable()
                 .formLogin()
                 .loginPage("/loginpage").loginProcessingUrl("/try-login")
                 .successHandler((request, response, authentication) -> {
@@ -31,13 +34,23 @@ public class SecurityOldConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("login")
                 .passwordParameter("pass")
                 .and()
+                .logout()
+                .logoutUrl("/try-logout")
+                .addLogoutHandler((request, response, authentication) -> {
+                    try {
+                        response.sendRedirect("/infopage");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .and()
                 .httpBasic();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(service)
-                        .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 //        auth.inMemoryAuthentication()
 //                .withUser("user").password("user").authorities("reed")
 //                .and()
