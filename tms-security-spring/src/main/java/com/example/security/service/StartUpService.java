@@ -17,20 +17,36 @@ public class StartUpService {
 
     @PostConstruct
     public void init() {
-        User user = User.builder()
+        User read = User.builder()
                 .id(UUID.randomUUID())
-                .username("user")
+                .username("read")
                 .password("pass")
                 .auth("read")
                 .build();
 
-        User admin = User.builder()
+        User write = User.builder()
                 .id(UUID.randomUUID())
-                .username("admin1")
-                .password("admin")
+                .username("write")
+                .password("pass")
                 .auth("write")
                 .build();
 
+        User user = User.builder()
+                .id(UUID.randomUUID())
+                .username("user")
+                .password("pass")
+                .auth("ROLE_USER")
+                .build();
+
+        User admin = User.builder()
+                .id(UUID.randomUUID())
+                .username("admin")
+                .password("pass")
+                .auth("ROLE_ADMIN")
+                .build();
+
+        repository.save(read);
+        repository.save(write);
         repository.save(user);
         repository.save(admin);
     }
