@@ -34,6 +34,7 @@ public class SecurityOldConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pagewrite").hasAuthority("write")
                 .antMatchers("/pageuser").hasRole("USER")
                 .antMatchers("/pageadmin").hasRole("ADMIN")
+                .antMatchers("/store/**").permitAll() //обозначает ** что ко всему ресурсу что начинается на /store/ есть доступ
                 .and()
                 .cors().disable()
                 .formLogin()
