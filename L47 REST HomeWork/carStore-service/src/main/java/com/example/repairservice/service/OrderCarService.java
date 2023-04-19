@@ -4,6 +4,7 @@ import com.example.repairservice.client.CarClient;
 import com.example.repairservice.dto.CarDto;
 import com.example.repairservice.dto.OrderCarResponse;
 import com.example.repairservice.dto.StoreCarRequest;
+import com.example.repairservice.web.OrderException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +19,17 @@ public class OrderCarService {
     private final CarClient carClient;
 
     public OrderCarResponse orderResponse(StoreCarRequest dto) {
-        String orderModel = dto.getModel();
-        CarDto orderCar;
-        List<CarDto> allCar = carClient.getAllCar();
-        for (CarDto car : allCar) {
-            if (car.getModel().equals(orderModel)) {
-                orderCar = car;
-                return OrderCarResponse.builder()
-                        .idOrder(UUID.randomUUID())
-                        .model(orderCar.getModel())
-                        .color(orderCar.getColor())
-                        .price(orderCar.getPrice())
-                        .build();
-            }
-        }
-        return null;
 
+        CarDto carById = carClient.getCarById(dto.getId());
+
+        if (carById == null){
+                throw new OrderException("don't find car with ID {" + carById.getId() + "}");
+            }
+        return OrderCarResponse.builder()
+                .idOrder(UUID.randomUUID())
+                .model(carById.getModel())
+                .color(carById.getColor())
+                .price(carById.getPrice())
+                .build();
     }
 }

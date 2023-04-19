@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "car_service")
+@Table(name = "cars_garage")
 public class CarEntity {
 
     @Id

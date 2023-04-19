@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface CarRepository extends JpaRepository<CarEntity, UUID> {
-    CarEntity findByModel(String model);
+//    CarEntity findByModel(String model);
 
     //
 
