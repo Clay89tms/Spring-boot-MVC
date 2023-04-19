@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +32,15 @@ public class User implements UserDetails {
     private String password;
 
     private String auth;
+//    private List<String> auth;
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        auth
+//                .stream()
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
