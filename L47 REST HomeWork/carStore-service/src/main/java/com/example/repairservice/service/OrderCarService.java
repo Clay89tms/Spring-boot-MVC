@@ -8,7 +8,6 @@ import com.example.repairservice.web.OrderException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -18,13 +17,16 @@ public class OrderCarService {
 
     private final CarClient carClient;
 
-    public OrderCarResponse orderResponse(StoreCarRequest dto) {
+    public OrderCarResponse orderResponse(StoreCarRequest carRequest) {
 
-        CarDto carById = carClient.getCarById(dto.getId());
+        CarDto carById;
 
-        if (carById == null){
-                throw new OrderException("don't find car with ID {" + carById.getId() + "}");
-            }
+        carById = carClient.getCarById(carRequest.getId());
+
+
+        if (carById == null) {
+            throw new OrderException("don't find car with ID {" + carById.getId() + "}");
+        }
         return OrderCarResponse.builder()
                 .idOrder(UUID.randomUUID())
                 .model(carById.getModel())

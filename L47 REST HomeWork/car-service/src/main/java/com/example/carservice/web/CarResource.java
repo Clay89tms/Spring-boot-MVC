@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 
@@ -47,12 +49,12 @@ public class CarResource {
             @ApiResponse(description = "fail to find car", responseCode = "404",
                     content = @Content(schema = @Schema(implementation = ClassNotFoundException.class))),
             @ApiResponse(description = "return find car", responseCode = "200",
-                    content = @Content(mediaType = "application/JSON", schema = @Schema(name = "Schema find by ID",
+                    content = @Content(mediaType = "application/JSON1", schema = @Schema(name = "Schema find by ID",
                             implementation = CarEntity.class)))
     })
-    public CarEntity getCarById(@RequestBody CarEntity car) {
+    public CarEntity getCarById(@RequestParam(name = "id") UUID id) {
 
-        return service.getCarById(car.getId());
+        return service.getCarById(id);
     }
 
     @GetMapping("/all")
@@ -89,4 +91,5 @@ public class CarResource {
     public void delete(@RequestBody CarEntity car) {
         service.deleteCarById(car.getId());
     }
+
 }

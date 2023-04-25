@@ -5,8 +5,10 @@ import com.example.carservice.model.CarEntity;
 import com.example.carservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -21,7 +23,9 @@ public class CarService {
     }
 
     public CarEntity getCarById(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
+        CarEntity carEntity = repository.findById(id).get();
+        return carEntity;
+//        return repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
     }
 
     public List<CarEntity> getAllCar() {

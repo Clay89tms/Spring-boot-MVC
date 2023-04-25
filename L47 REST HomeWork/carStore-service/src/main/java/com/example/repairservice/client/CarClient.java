@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @FeignClient(
         name = "carClient",
-        url = "http://127.0.0.1:8085"
+        url = "http://127.0.0.1:8085/car"
 )
 public interface CarClient {
     @PostMapping
