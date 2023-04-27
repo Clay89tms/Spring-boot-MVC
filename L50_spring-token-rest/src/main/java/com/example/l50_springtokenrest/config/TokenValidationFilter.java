@@ -18,7 +18,8 @@ public class TokenValidationFilter extends OncePerRequestFilter {
     private final TokenService service;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String jwtToken = request.getHeader("Authorization");
+        String jwtTokenWithPrefix = request.getHeader("Authorization");
+        String jwtToken = jwtTokenWithPrefix.substring("Bearer ".length());
 
         if(jwtToken != null && !jwtToken.isBlank() && service.isValid(jwtToken)){
             Authentication authentication = service.readToken(jwtToken);
