@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class SecurityOldConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pageuser").hasRole("USER")
                 .antMatchers("/pageadmin").hasRole("ADMIN")
                 .antMatchers("/store/**").permitAll() //обозначает ** что ко всему ресурсу что начинается на /store/ есть доступ
+                .antMatchers("/create").permitAll()
                 .and()
                 .cors().disable()
                 .formLogin()
@@ -61,8 +63,13 @@ public class SecurityOldConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         auth.userDetailsService(service)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(bCryptPasswordEncoder);
+//        auth.userDetailsService(service)
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 //        auth.inMemoryAuthentication()
 //                .withUser("user").password("user").authorities("reed").roles("USER")
 //                .and()
