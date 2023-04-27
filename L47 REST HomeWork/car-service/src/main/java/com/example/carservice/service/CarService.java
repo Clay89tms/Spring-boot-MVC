@@ -1,6 +1,7 @@
 package com.example.carservice.service;
 
 import com.example.carservice.exp.CarNotFoundException;
+import com.example.carservice.model.CarDto;
 import com.example.carservice.model.CarEntity;
 import com.example.carservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class CarService {
 
     private final CarRepository repository;
+    private final CarMapper carMapper;
 
     public CarEntity createCar(CarEntity car) {
         return repository.save(car);
@@ -32,20 +34,26 @@ public class CarService {
         return repository.findAll();
     }
 
-    public CarEntity updateCar(CarEntity car) {
+
+    public CarDto updateCar(CarDto car) {
+
         //add my error class/ del null
         if (repository.existsById(car.getId())) {
-            CarEntity carFromDB = repository.findById(car.getId()).get();
-            if (car.getModel() != null) {
-                carFromDB.setModel(car.getModel());
-            }
-            if (car.getColor() != null && !car.getColor().isBlank()) {
-                carFromDB.setColor(car.getColor());
-            }
-            if (car.getPrice() != null) {
-                carFromDB.setPrice(car.getPrice());
-            }
-            return repository.save(carFromDB);
+
+            CarEntity carEntity = repository.findById(car.getId()).get();
+            CarDto carDto = carMapper.updateCarFromDto(carEntity);
+//            CarEntity carFromDB = repository.findById(car.getId()).get();
+//            if (car.getModel() != null) {
+//                carFromDB.setModel(car.getModel());
+//            }
+//            if (car.getColor() != null && !car.getColor().isBlank()) {
+//                carFromDB.setColor(car.getColor());
+//            }
+//            if (car.getPrice() != null) {
+//                carFromDB.setPrice(car.getPrice());
+//            }
+//            return repository.save(carFromDB);
+            return carDto;
         }
         return null;
     }
@@ -55,5 +63,10 @@ public class CarService {
         repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
         repository.deleteById(id);
 
+    }
+
+
+    public CarDto updateCarFromDto(CarEntity carEntity, CarDto carDto) {
+        return carDto;
     }
 }

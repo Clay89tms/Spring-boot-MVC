@@ -16,18 +16,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Entity
-@Table(name = "cars_garage")
-public class CarEntity{
-
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+public class CarDto{
     private UUID id;
-    @NotNull
     private String model;
     private String color;
     private Double price;

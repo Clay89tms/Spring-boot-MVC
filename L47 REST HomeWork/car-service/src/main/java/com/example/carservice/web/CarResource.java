@@ -1,6 +1,7 @@
 package com.example.carservice.web;
 
 import com.example.carservice.exp.ErrorResponse;
+import com.example.carservice.model.CarDto;
 import com.example.carservice.model.CarEntity;
 import com.example.carservice.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -76,7 +77,7 @@ public class CarResource {
                     content = @Content(mediaType = "application/JSON", schema = @Schema(name = "Schema update car",
                             implementation = CarEntity.class)))
     })
-    public CarEntity update(@RequestBody CarEntity car) {
+    public CarDto update(@RequestBody CarDto car) {
         return service.updateCar(car);
     }
 
