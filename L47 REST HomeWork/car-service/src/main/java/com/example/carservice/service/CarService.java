@@ -6,10 +6,8 @@ import com.example.carservice.model.CarEntity;
 import com.example.carservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -35,13 +33,15 @@ public class CarService {
     }
 
 
-    public CarDto updateCar(CarDto car) {
+    public CarEntity updateCar(CarDto car) {
 
-        //add my error class/ del null
-        if (repository.existsById(car.getId())) {
+        CarEntity carEntity = repository.findById(car.getId()).map(carUpdate -> carMapper.updateCarFromDto(car))
+                .orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + car.getId() + "}"));
+        return repository.save(carEntity);
 
-            CarEntity carEntity = repository.findById(car.getId()).get();
-            CarDto carDto = carMapper.updateCarFromDto(carEntity);
+
+//            CarDto carDto = carMapper.updateCarFromDto(carEntity);
+
 //            CarEntity carFromDB = repository.findById(car.getId()).get();
 //            if (car.getModel() != null) {
 //                carFromDB.setModel(car.getModel());
@@ -53,9 +53,10 @@ public class CarService {
 //                carFromDB.setPrice(car.getPrice());
 //            }
 //            return repository.save(carFromDB);
-            return carDto;
-        }
-        return null;
+
+//            return carDto;
+//        }
+//        return null;
     }
 
 

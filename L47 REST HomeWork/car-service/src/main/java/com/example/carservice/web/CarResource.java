@@ -77,7 +77,7 @@ public class CarResource {
                     content = @Content(mediaType = "application/JSON", schema = @Schema(name = "Schema update car",
                             implementation = CarEntity.class)))
     })
-    public CarDto update(@RequestBody CarDto car) {
+    public CarEntity update(@RequestBody CarDto car) {
         return service.updateCar(car);
     }
 
