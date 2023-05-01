@@ -23,9 +23,9 @@ public class CarService {
     }
 
     public CarEntity getCarById(UUID id) {
-        CarEntity carEntity = repository.findById(id).get();
-        return carEntity;
-//        return repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
+//        CarEntity carEntity = repository.findById(id).orElseThrow();
+//        return carEntity;
+        return repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
     }
 
     public List<CarEntity> getAllCar() {

@@ -73,6 +73,8 @@ public class CarResource {
     @PutMapping
     @Operation(summary = "update car", description = "write ID car and fields for update")
     @ApiResponses(value = {
+            @ApiResponse(description = "fail to find car", responseCode = "404",
+                    content = @Content(schema = @Schema(implementation = ClassNotFoundException.class))),
             @ApiResponse(description = "return updating car", responseCode = "201",
                     content = @Content(mediaType = "application/JSON", schema = @Schema(name = "Schema update car",
                             implementation = CarEntity.class)))
