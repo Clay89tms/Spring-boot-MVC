@@ -6,9 +6,11 @@ import com.example.carservice.model.CarEntity;
 import com.example.carservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 
@@ -18,26 +20,32 @@ public class CarService {
     private final CarRepository repository;
     private final CarMapper carMapper;
 
-    public CarEntity createCar(CarEntity car) {
-        return repository.save(car);
+    public CarDto createCar(CarEntity car) {
+        CarEntity carEntity = repository.save(car);
+        return carMapper.convertCarToDto(carEntity);
     }
 
-    public CarEntity getCarById(UUID id) {
-//        CarEntity carEntity = repository.findById(id).orElseThrow();
-//        return carEntity;
-        return repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
+    public CarDto getCarById(UUID id) {
+        CarEntity carEntity = repository.findById(id).orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + id + "}"));
+        return carMapper.convertCarToDto(carEntity);
     }
 
-    public List<CarEntity> getAllCar() {
-        return repository.findAll();
+    public List<CarDto> getAllCar() {
+        List<CarEntity> carEntityList = repository.findAll();
+        return carMapper.convertListCarToListEntity(carEntityList);
     }
 
 
-    public CarEntity updateCar(CarDto car) {
-
-        CarEntity carEntity = repository.findById(car.getId()).map(carUpdate -> carMapper.updateCarFromDto(car))
+    @Transactional
+    public CarDto updateCar(CarDto car) {
+        repository.findById(car.getId()).map(carNew -> car);
+        CarEntity carEntity = repository.findById(car.getId())
                 .orElseThrow(() -> new CarNotFoundException("don't find car with ID {" + car.getId() + "}"));
-        return repository.save(carEntity);
+        carMapper.convertCarToDto(carEntity);
+        carEntity = carMapper.convertCarToEntity(car);
+
+
+        return car;
 
 
 //            CarDto carDto = carMapper.updateCarFromDto(carEntity);
@@ -67,7 +75,7 @@ public class CarService {
     }
 
 
-    public CarDto updateCarFromDto(CarEntity carEntity, CarDto carDto) {
-        return carDto;
-    }
+//    public CarDto updateCarFromDto(CarEntity carEntity, CarDto carDto) {
+//        return carDto;
+//    }
 }

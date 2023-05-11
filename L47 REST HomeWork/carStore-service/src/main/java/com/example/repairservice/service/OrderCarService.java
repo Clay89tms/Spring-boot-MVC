@@ -19,9 +19,7 @@ public class OrderCarService {
 
     public OrderCarResponse orderResponse(StoreCarRequest carRequest) {
 
-        CarDto carById;
-
-        carById = carClient.getCarById(carRequest.getId());
+        CarDto carById = carClient.getCarById(carRequest.getId());
 
 
         if (carById == null) {

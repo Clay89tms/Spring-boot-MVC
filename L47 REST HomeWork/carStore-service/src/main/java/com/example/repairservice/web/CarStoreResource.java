@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/store.car")
+@RequestMapping("/store/car")
 public class CarStoreResource {
 
     private final OrderCarService service;

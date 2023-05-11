@@ -40,7 +40,7 @@ public class CarResource {
                     content = @Content(mediaType = "application/JSON", schema = @Schema(name = "Schema build",
                             implementation = CarEntity.class)))
     })
-    public CarEntity saveCar(@RequestBody CarEntity car) {
+    public CarDto saveCar(@RequestBody CarEntity car) {
         return service.createCar(car);
     }
 
@@ -53,7 +53,7 @@ public class CarResource {
                     content = @Content(mediaType = "application/JSON1", schema = @Schema(name = "Schema find by ID",
                             implementation = CarEntity.class)))
     })
-    public CarEntity getCarById(@RequestParam(name = "id") UUID id) {
+    public CarDto getCarById(@RequestParam(name = "id") UUID id) {
 
         return service.getCarById(id);
     }
@@ -66,7 +66,7 @@ public class CarResource {
                             array = @ArraySchema(schema = @Schema(name = "Schema find all cars",
                                     implementation = CarEntity.class))))
     })
-    public List<CarEntity> getAllCar() {
+    public List<CarDto> getAllCar() {
         return service.getAllCar();
     }
 
@@ -79,7 +79,7 @@ public class CarResource {
                     content = @Content(mediaType = "application/JSON", schema = @Schema(name = "Schema update car",
                             implementation = CarEntity.class)))
     })
-    public CarEntity update(@RequestBody CarDto car) {
+    public CarDto update(@RequestBody CarDto car) {
         return service.updateCar(car);
     }
 
